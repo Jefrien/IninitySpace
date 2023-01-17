@@ -1,0 +1,190 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/img/Player ship/Boosters (16 x 16).png" type="Texture" id=1]
+[ext_resource path="res://assets/img/Player ship/Player_ship (16 x 16).png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Shoot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/img/Player ship/Boosters_left (16 x 16).png" type="Texture" id=5]
+[ext_resource path="res://assets/img/Player ship/Boosters_right (16 x 16).png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Boost:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Boost:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Idle"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BoostLeft:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Boost:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BoostLeft:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Idle"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BoostRight:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Boost:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BoostLeft:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BoostRight:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[node name="Player" type="KinematicBody2D" groups=["player"]]
+script = ExtResource( 3 )
+Shoot = ExtResource( 4 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 0, -42, -48, 12, -48, 24, -31, 24, -31, 42, 31, 42, 31, 24, 48, 24, 48, 11 )
+
+[node name="AirShip" type="Sprite" parent="."]
+scale = Vector2( 6, 6 )
+texture = ExtResource( 2 )
+hframes = 3
+frame = 1
+
+[node name="Boost" type="Sprite" parent="AirShip"]
+position = Vector2( 0, 15 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="BoostLeft" type="Sprite" parent="AirShip"]
+visible = false
+position = Vector2( -0.0833336, 15 )
+scale = Vector2( 0.78125, 1 )
+texture = ExtResource( 5 )
+hframes = 2
+
+[node name="BoostRight" type="Sprite" parent="AirShip"]
+visible = false
+position = Vector2( 0.0833333, 15 )
+scale = Vector2( 0.760417, 1 )
+texture = ExtResource( 6 )
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AirShip"]
+autoplay = "Idle"
+anims/Idle = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[node name="AnimationBoostLeft" type="AnimationPlayer" parent="AirShip"]
+autoplay = "Idle"
+anims/Idle = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+
+[node name="AnimationBoostRight" type="AnimationPlayer" parent="AirShip"]
+autoplay = "Idle"
+anims/Idle = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+
+[node name="SpawnShoot" type="Position2D" parent="."]
+position = Vector2( 0, -42 )

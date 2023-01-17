@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/img/Enemies/enemy-2.png" type="Texture" id=1]
+[ext_resource path="res://assets/img/Enemies/enemy-1.png" type="Texture" id=2]
+[ext_resource path="res://assets/img/Enemies/Alan (16 x 16).png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Enemy.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Explosion.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/ShootEnemy.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 52, 50 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "normal",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[node name="Enemy1" type="Area2D" groups=["enemy"]]
+script = ExtResource( 4 )
+Explosion = ExtResource( 5 )
+Shoot = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 14 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 4, 4 )
+frames = SubResource( 2 )
+animation = "normal"
+frame = 1
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 30 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+anims/Idle = SubResource( 3 )
+anims/RESET = SubResource( 4 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -1, 0 )
+scale = Vector2( 0.679487, 0.666667 )
+rect = Rect2( -78, -54, 156, 150 )
+
+[node name="ExplosionSpawn" type="Position2D" parent="."]
+position = Vector2( 0, 43 )
+
+[node name="ShootSpawn" type="Position2D" parent="."]
+position = Vector2( 0, 60 )
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="area_entered" from="." to="." method="_on_Enemy1_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Enemy1_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

@@ -1,0 +1,187 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/fonts/HudStyle.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/Header_Style.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/audio/Game Over.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Scripts/HUD.gd" type="Script" id=4]
+[ext_resource path="res://assets/img/ControllerRadius.png" type="Texture" id=5]
+[ext_resource path="res://assets/img/SPACE.png" type="Texture" id=6]
+[ext_resource path="res://assets/fonts/NokiaCellphoneFC.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 100.0
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -15.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = 14.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 580.0
+margin_bottom = 110.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 580.0
+margin_bottom = 53.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 156.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 1 )
+text = "Score "
+align = 1
+
+[node name="Score" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 160.0
+margin_right = 191.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 57.0
+margin_right = 580.0
+margin_bottom = 110.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 151.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 1 )
+text = "Level "
+align = 1
+
+[node name="Level" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 155.0
+margin_right = 176.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 1 )
+text = "1"
+align = 1
+valign = 1
+
+[node name="GameOverContainer" type="VBoxContainer" parent="."]
+visible = false
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -41.0
+margin_bottom = 41.0
+alignment = 1
+
+[node name="Label" type="Label" parent="GameOverContainer"]
+margin_right = 600.0
+margin_bottom = 82.0
+custom_colors/font_color = Color( 0.984314, 0.803922, 0.156863, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "GAME OVER"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverContainer"]
+margin_top = 86.0
+margin_right = 600.0
+margin_bottom = 145.0
+alignment = 1
+
+[node name="Restart" type="Button" parent="GameOverContainer/HBoxContainer"]
+margin_left = 60.0
+margin_right = 324.0
+margin_bottom = 59.0
+custom_colors/font_color_hover = Color( 0.984314, 0.803922, 0.156863, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "  Restart  "
+flat = true
+
+[node name="Menu" type="Button" parent="GameOverContainer/HBoxContainer"]
+margin_left = 328.0
+margin_right = 539.0
+margin_bottom = 59.0
+custom_colors/font_color_hover = Color( 0.984314, 0.803922, 0.156863, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "  Menu  "
+flat = true
+
+[node name="Controls" type="MarginContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="InnerJoy" type="Sprite" parent="Controls"]
+visible = false
+modulate = Color( 1, 1, 1, 0.470588 )
+position = Vector2( 128, 894 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 5 )
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Controls"]
+modulate = Color( 1, 1, 1, 0.156863 )
+position = Vector2( 50, 818 )
+scale = Vector2( 0.77, 0.77 )
+normal = ExtResource( 5 )
+shape = SubResource( 1 )
+visibility_mode = 1
+
+[node name="ActionButton" type="TouchScreenButton" parent="Controls"]
+modulate = Color( 1, 1, 1, 0.313726 )
+position = Vector2( 395, 824 )
+scale = Vector2( 0.265625, 0.265625 )
+normal = ExtResource( 6 )
+action = "ui_accept"
+visibility_mode = 1
+
+[node name="Instructions" type="MarginContainer" parent="."]
+modulate = Color( 1, 1, 1, 0.313726 )
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 20.0
+margin_top = -42.0
+margin_right = -10.0
+margin_bottom = 42.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Instructions"]
+margin_right = 570.0
+margin_bottom = 84.0
+
+[node name="Label" type="Label" parent="Instructions/VBoxContainer"]
+margin_right = 570.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 2 )
+text = "- Use the arrows to move"
+valign = 1
+
+[node name="Label2" type="Label" parent="Instructions/VBoxContainer"]
+margin_top = 44.0
+margin_right = 570.0
+margin_bottom = 84.0
+custom_fonts/font = SubResource( 3 )
+text = "- Use SPACE key to shoot"
+valign = 1
+
+[node name="InstructionsTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="pressed" from="GameOverContainer/HBoxContainer/Restart" to="." method="_on_Restart_pressed"]
+[connection signal="pressed" from="GameOverContainer/HBoxContainer/Menu" to="." method="_on_Menu_pressed"]
+[connection signal="timeout" from="InstructionsTimer" to="." method="_on_InstructionsTimer_timeout"]
